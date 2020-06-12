@@ -93,22 +93,27 @@ var expandedAttribution = new ol.control.Attribution({
 
 var map = new ol.Map({
     controls: ol.control.defaults({attribution:false}).extend([
-        expandedAttribution,new ol.control.ScaleLine({}),new measureControl(),new geolocateControl()
+        expandedAttribution,new measureControl(),new geolocateControl()
     ]),
     target: document.getElementById('map'),
     renderer: 'canvas',
     overlays: [overlayPopup],
     layers: layersList,
     view: new ol.View({
-        extent: [294337.482096, 9840557.295082, 302161.010619, 9845783.538832], maxZoom: 28, minZoom: 1, projection: new ol.proj.Projection({
+        extent: [293686.936906, 9841157.998246, 301874.369026, 9845558.409646], maxZoom: 28, minZoom: 1, projection: new ol.proj.Projection({
             code: 'USER:100000',
             extent: [295659.000000, 9834484.310000, 321405.386000, 9845050.829500],
             units: 'm'})
     })
 });
 
+var layerSwitcher = new ol.control.LayerSwitcher({tipLabel: "Layers"});
+map.addControl(layerSwitcher);
+layerSwitcher.hidePanel = function() {};
+layerSwitcher.showPanel();
 
-map.getView().fit([294337.482096, 9840557.295082, 302161.010619, 9845783.538832], map.getSize());
+
+map.getView().fit([293686.936906, 9841157.998246, 301874.369026, 9845558.409646], map.getSize());
 
 var NO_POPUP = 0
 var ALL_FIELDS = 1
@@ -702,6 +707,3 @@ map.on("rendercomplete", function(evt) {
         attributionComplete = true;
     }
 })
-
-    var gcl = new ol.Graticule({strokeStyle: new ol.style.Stroke({color: 'rgba(35,35,35,255)', lineDash: null, lineCap: 'round', lineJoin: 'round', width: 0})});
-    gcl.setMap(map);
